@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Rides</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">On The Way Taxi</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#" id="logout-link" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <h2>Your Rides</h2>
+        <div id="rides-list"></div>
+    </div>
+
+    <script src="firebaseConfig.js" type="module"></script>
+    <script src="yourRidesScript.js" type="module"></script>
+</body>
+</html>
