@@ -6,7 +6,7 @@
     <title>On The Way Taxi</title>
     <link rel="stylesheet" href="indexstyle.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" defer></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -35,47 +35,41 @@
             <p>Safe, reliable, and affordable taxi service at your fingertips</p>
         </div>
         
-        
-        
         <!-- Booking Section -->
         <div class="booking-container">
             <div class="booking-form">
                 <h2>Book a Ride</h2>
                 <form id="bookingForm">
-    <!-- Pickup Location (auto-detected) -->
-    <div class="form-group">
-        <label for="pickup">Your Current Location</label>
-        <input type="text" id="pickup" placeholder="Detecting your location..." readonly required>
-    </div>
-
-    <!-- Destination (entered by user) -->
-    <div class="form-group">
-        <label for="destination">Where are you going?</label>
-        <input type="text" id="destination" placeholder="Enter destination" autocomplete="off" required>
-        <div id="autocomplete-results" style="position: relative; z-index: 1000;"></div>
-    </div>
-
-    <!-- Number of Passengers -->
-    <div class="form-group">
-        <label for="passengers">Passengers</label>
-        <select id="passengers" required>
-            <option value="1">1 Passenger</option>
-            <option value="2">2 Passengers</option>
-            <option value="3">3 Passengers</option>
-            <option value="4">4 Passengers</option>
-        </select>
-    </div>
-    <button type="submit" class="submit-btn" id="book-ride-btn">Book Now</button>
-</form>
-                
-                
+                    <div class="form-group">
+                        <label for="pickup">Your Current Location</label>
+                        <input type="text" id="pickup" placeholder="Enter or detect your location..." required>
+                        <div id="pickup-autocomplete-results" class="autocomplete-container"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Where are you going?</label>
+                        <input type="text" id="destination" placeholder="Enter destination" autocomplete="off" required>
+                        <div id="autocomplete-results" class="autocomplete-container"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="passengers">Passengers</label>
+                        <select id="passengers" required>
+                            <option value="1">1 Passenger</option>
+                            <option value="2">2 Passengers</option>
+                            <option value="3">3 Passengers</option>
+                            <option value="4">4 Passengers</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn" id="book-ride-btn">Book Now</button>
+                </form>
             </div>
             <div class="map-container">
                 <div id="map" style="height: 400px; width: 100%; background-color: #e0e0e0; border-radius: 1rem; overflow: hidden;"></div>
             </div>
         </div>
-        <!-- Map Container -->
-        <div id="map" style="height: 400px; width: 100%;"></div>
+        
+        <!-- Travel Distance and Time Info -->
+        <div id="route-info" style="font-size: 16px; margin-bottom: 10px;"></div>
+
         <!-- Features Section -->
         <div class="features">
             <div class="feature-card">
@@ -99,8 +93,8 @@
     </div>
 
     <!-- Firebase and JS scripts -->
-    <script src="firebaseConfig.js" type="module"></script>
-    <script src="auth.js" type="module"></script>
-    <script src="indexScript.js" type="module"></script>
+    <script src="firebaseConfig.js" type="module" defer></script>
+    <script src="auth.js" type="module" defer></script>
+    <script src="indexScript.js" type="module" defer></script>
 </body>
 </html>

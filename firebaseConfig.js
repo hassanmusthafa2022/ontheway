@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyD3NIPennDkJfK4MZap9pC_0R64_ED69CY",
   authDomain: "ontheway-7a170.firebaseapp.com",
@@ -12,10 +11,10 @@ const firebaseConfig = {
   measurementId: "G-WTPBRM9KG1"
 };
 
-// Initialize Firebase App and Firestore
+// Initialize Firebase and Firestore
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-console.log("Firebase initialized:", app);  // Add this line to confirm Firebase initialization
 
-// Export app and db so they can be imported in other files
+// Export app and db explicitly
 export { app, db };
+

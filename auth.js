@@ -1,4 +1,4 @@
-import app from './firebaseConfig.js';
+import { app } from './firebaseConfig.js';  // Import app from firebaseConfig.js
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 const auth = getAuth(app);
@@ -6,8 +6,9 @@ const auth = getAuth(app);
 console.log("Auth instance:", auth);
 
 // Registration
-if (document.getElementById('registerForm')) {
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+const registerForm = document.getElementById('registerForm');
+if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
@@ -31,9 +32,12 @@ if (document.getElementById('registerForm')) {
 }
 
 // Login
-if (document.getElementById('loginForm')) {
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        console.log("Login form submitted");  // Debug message to confirm submission
+
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
@@ -42,15 +46,17 @@ if (document.getElementById('loginForm')) {
         if (email && password) {
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                console.log("Login successful:", userCredential);
+                console.log("Login successful:", userCredential.user);
                 alert("Login successful!");
-                window.location.href = "index.html";  // Redirect to home page
+                window.location.href = "index.html";  // Redirect to home page after login
             } catch (error) {
-                console.error("Error during login:", error.message);
-                alert(error.message);
+                console.error("Login error:", error.message);
+                alert("Error logging in: " + error.message);
             }
         } else {
             alert("Please enter both email and password.");
         }
     });
+} else {
+    console.error("Login form not found");
 }
