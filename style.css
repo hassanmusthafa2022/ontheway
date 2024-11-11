@@ -1,3 +1,5 @@
+/* style.css */
+
 /* -----------------------------------
    1. Reset and Base Styles
 ------------------------------------ */
@@ -107,10 +109,8 @@ body {
 }
 
 /* Message Container Styling */
-#message-container,
 #error-message,
-#reset-error-message,
-#reset-success-message {
+#message-container {
   margin-top: 1rem;
   padding: 0.75rem;
   border-radius: 0.5rem;
@@ -118,16 +118,19 @@ body {
   display: none;
 }
 
+#error-message.active,
 #message-container.error,
-#error-message,
-#reset-error-message {
+#message-container.success {
+  display: block;
+}
+
+#message-container.error {
   background-color: #fdecea;
   color: #b91c1c;
   border: 1px solid #f5c2c7;
 }
 
-#message-container.success,
-#reset-success-message {
+#message-container.success {
   background-color: #e6ffed;
   color: #065f46;
   border: 1px solid #a7f3d0;
@@ -221,8 +224,8 @@ body {
 .login-container p,
 .register-container p,
 .reset-password-container p,
-.riderLoginForm p a,
-.riderRegisterForm p a {
+.riderLoginForm p,
+.riderRegisterForm p {
   margin-top: 1rem;
   color: #4b5563;
 }
@@ -282,7 +285,7 @@ body {
 }
 
 /* Booking Form Styles */
-.main-container {
+.booking-container {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
@@ -290,7 +293,105 @@ body {
   justify-content: center;
 }
 
-.route-section, .map-section, .notifications-section {
+.booking-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1 1 400px;
+  max-width: 500px;
+}
+
+.form-group.booking-form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.booking-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.booking-form .form-group input,
+.booking-form .form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.booking-form .form-group input:focus,
+.booking-form .form-group select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* Submit Button in Booking Form */
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Waypoint Button and Container */
+#toggle-waypoint-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+#toggle-waypoint-btn:hover {
+  background-color: #1d4ed8;
+}
+
+#waypoint-container {
+  display: none;
+  margin-top: 1rem;
+}
+
+#waypoint-container label {
+  font-size: 1rem;
+  color: #4b5563;
+  margin-right: 0.5rem;
+}
+
+#waypoint-container input {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  width: 100%;
+  font-size: 1rem;
+}
+
+#waypoint-container input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* Map Container */
+.map-container {
   background: white;
   padding: 2rem;
   border-radius: 1rem;
@@ -299,29 +400,12 @@ body {
   max-width: 600px;
 }
 
-.route-section h2, .map-section h2, .notifications-section h2 {
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-}
-
-/* Map Container */
 #map {
   height: 400px;
   width: 100%;
   border-radius: 1rem;
   overflow: hidden;
   z-index: 500; /* Ensure map is below autocomplete */
-}
-
-@media (max-width: 768px) {
-  #map {
-    height: 250px;
-  }
-
-  .route-section, .map-section, .notifications-section {
-    padding: 1.5rem;
-  }
 }
 
 /* Features Section */
@@ -468,6 +552,14 @@ body {
   font-size: 1.8rem;
 }
 
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  z-index: 500; /* Ensure map is below autocomplete */
+}
+
 /* Notifications Section */
 .notifications-section {
   background: white;
@@ -541,14 +633,54 @@ body {
     display: none;
   }
 
-  /* Main Container Adjustments */
-  .main-container {
+  /* Booking Container */
+  .booking-container {
     flex-direction: column;
     align-items: center;
   }
 
-  .route-section, .map-section, .notifications-section {
+  .booking-form,
+  .map-container {
     max-width: 100%;
+  }
+
+  /* Rider Dashboard Sections */
+  .route-section,
+  .map-section,
+  .notifications-section {
+    padding: 1.5rem;
+  }
+
+  .notifications-section ul li {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Feature Cards */
+  .feature-card {
+    max-width: 100%;
+  }
+
+  /* Adjust Hero Section */
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  /* Ensure buttons span full width on mobile */
+  .login-btn,
+  .register-btn,
+  .reset-btn,
+  .logout-btn,
+  .submit-btn,
+  #start-trip-btn,
+  .toggle-waypoint-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
   }
 
   /* Adjust map height on smaller screens */
@@ -556,7 +688,7 @@ body {
     height: 250px;
   }
 
-  /* Adjust form container padding */
+  /* Responsive Form Containers */
   .login-container,
   .register-container,
   .reset-password-container,
@@ -565,6 +697,14 @@ body {
     width: 90%;
     max-width: 400px;
     margin: 2rem auto;
+    padding: 1.5rem;
+  }
+
+  /* Adjust map containers */
+  .map-container,
+  .route-section,
+  .map-section,
+  .notifications-section {
     padding: 1.5rem;
   }
 
@@ -577,28 +717,56 @@ body {
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
   }
+}
 
-  /* Touch-Friendly Interactions */
-  button,
-  a.button,
-  .submit-btn,
-  .login-btn,
-  .register-btn,
-  .reset-btn,
-  #start-trip-btn,
-  .toggle-waypoint-btn {
-    transition: background-color 0.2s ease, transform 0.1s ease;
+/* -----------------------------------
+  8. Additional Styles for Mobile-Friendly Autocomplete and Buttons
+------------------------------------ */
+
+/* Ensure autocomplete dropdowns are responsive and touch-friendly */
+.autocomplete-container {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.autocomplete-item {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .autocomplete-container {
+    max-height: 150px;
   }
 
-  button:active,
-  a.button:active,
-  .submit-btn:active,
-  .login-btn:active,
-  .register-btn:active,
-  .reset-btn:active,
-  #start-trip-btn:active,
-  .toggle-waypoint-btn:active {
-    transform: scale(0.98);
-    background-color: #1d4ed8;
+  .autocomplete-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
   }
+}
+
+/* -----------------------------------
+  9. Touch-Friendly Interactions
+------------------------------------ */
+
+/* Remove hover-only styles and add active states */
+button,
+a.button,
+.submit-btn,
+.login-btn,
+.register-btn,
+.reset-btn,
+#start-trip-btn,
+.toggle-waypoint-btn {
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:active,
+a.button:active,
+.submit-btn:active,
+.login-btn:active,
+.register-btn:active,
+.reset-btn:active,
+#start-trip-btn:active,
+.toggle-waypoint-btn:active {
+  transform: scale(0.98);
+  background-color: #1d4ed8;
 }
