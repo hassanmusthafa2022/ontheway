@@ -40,6 +40,8 @@ function displayError(message, containerId) {
     const errorMessageContainer = document.getElementById(containerId);
     if (errorMessageContainer) {
         errorMessageContainer.textContent = message;
+        errorMessageContainer.classList.add('active');
+        errorMessageContainer.classList.remove('success');
     } else {
         alert(message);
     }
@@ -50,6 +52,8 @@ function displaySuccess(message, containerId) {
     const successMessageContainer = document.getElementById(containerId);
     if (successMessageContainer) {
         successMessageContainer.textContent = message;
+        successMessageContainer.classList.add('active', 'success');
+        successMessageContainer.classList.remove('error');
     }
 }
 
@@ -68,9 +72,6 @@ if (registerForm) {
             loadingSpinner.style.display = 'block';
         }
 
-        // Determine role based on the current page
-        const role = expectedRole; // "passenger" or "rider"
-
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -82,15 +83,15 @@ if (registerForm) {
             await setDoc(doc(db, "users", user.uid), { 
                 name, 
                 email, 
-                role 
+                role: expectedRole 
             });
 
-            displayError(`Registration successful! A verification email has been sent to your email address. Please verify your email before logging in as a ${role}.`, 'error-message');
+            displaySuccess(`Registration successful! A verification email has been sent to your email address. Please verify your email before logging in as a ${expectedRole}.`, 'message-container');
             registerForm.reset();
 
             // Optionally, redirect to the appropriate login page after a short delay
             setTimeout(() => {
-                window.location.href = role === "passenger" ? "login.html" : "riderLogin.html";
+                window.location.href = expectedRole === "passenger" ? "login.html" : "riderLogin.html";
             }, 3000); // 3-second delay
         } catch (error) {
             console.error("Registration Error:", error);
@@ -128,6 +129,7 @@ if (loginForm) {
 
         // Clear any previous error messages
         displayError('', 'error-message');
+        displaySuccess('', 'message-container');
 
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -257,10 +259,11 @@ if (logoutLinkElement) {
         e.preventDefault();
         try {
             await signOut(auth);
-            window.location.href = expectedRole === "passenger" ? 'login.html' : 'riderLogin.html';
+            showMessage("You have successfully logged out.", "success");
+            window.location.href = "login.html";
         } catch (error) {
-            console.error("Logout Error:", error);
-            alert('Failed to log out. Please try again.');
+            console.error("Logout error:", error.message);
+            showMessage("Error logging out: " + error.message, "error");
         }
     });
 }

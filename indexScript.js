@@ -77,6 +77,8 @@ async function getUserLocation() {
         }, (error) => {
             console.error("Error getting location:", error.message);
             showMessage("Unable to retrieve location. Please check location permissions.", "error");
+            // Initialize map with a default location (e.g., New York City)
+            initMap(40.7128, -74.0060);
         });
     } else {
         showMessage("Geolocation is not supported by this browser.", "error");
@@ -88,14 +90,16 @@ async function reverseGeocode(latitude, longitude) {
     try {
         const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
         const data = await response.json();
-        pickupInput.value = data.display_name;
+        pickupInput.value = data.display_name || '';
     } catch (error) {
         console.error("Error with reverse geocoding:", error);
     }
 }
 
-// Call getUserLocation to auto-detect and populate the pickup location
-getUserLocation();
+// Call getUserLocation inside DOMContentLoaded to ensure DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    getUserLocation();
+});
 
 // Event listener for waypoint toggle button
 toggleWaypointBtn.addEventListener('click', () => {
@@ -134,24 +138,27 @@ async function displayMultipleRoutes(startLat, startLng, endLat, endLng) {
             });
             map.fitBounds(routeLayers[0].getBounds());
         } else {
-            showMessage("No route found.", "error");
+            showMessage("No route found between the selected locations.", "error");
         }
     } catch (error) {
-        console.error("Error fetching route:", error);
-        showMessage("Error fetching route. Please try again.", "error");
+        console.error("Error fetching route from OSRM:", error);
+        showMessage("An error occurred while fetching the route.", "error");
     }
 }
 
-// Helper function to convert an address to coordinates using geocoding
+// Geocode address to coordinates
 async function geocodeAddress(address) {
     try {
-        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&addressdetails=1&limit=1`);
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`);
         const data = await response.json();
         if (data.length > 0) {
-            return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+            return {
+                lat: parseFloat(data[0].lat),
+                lon: parseFloat(data[0].lon)
+            };
         }
     } catch (error) {
-        console.error("Error in geocoding address:", error);
+        console.error("Error in geocoding:", error);
     }
     return null;
 }

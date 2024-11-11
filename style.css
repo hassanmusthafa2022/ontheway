@@ -1,5 +1,3 @@
-/* style.css */
-
 /* -----------------------------------
    1. Reset and Base Styles
 ------------------------------------ */
@@ -158,7 +156,7 @@ body {
 .register-container h2,
 .reset-password-container h2,
 .riderLoginForm h2,
-.riderRegisterForm h2 {
+riderRegisterForm h2 {
   color: #1f2937;
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
@@ -180,9 +178,9 @@ body {
 .form-group select {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #d1d5db;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
   border-radius: 0.5rem;
-  font-size: 1rem;
 }
 
 .form-group input:focus,
@@ -225,7 +223,7 @@ body {
 .register-container p,
 .reset-password-container p,
 .riderLoginForm p,
-.riderRegisterForm p {
+riderRegisterForm p {
   margin-top: 1rem;
   color: #4b5563;
 }
@@ -234,7 +232,7 @@ body {
 .register-container p a,
 .reset-password-container p a,
 .riderLoginForm p a,
-.riderRegisterForm p a {
+riderRegisterForm p a {
   color: #2563eb;
   text-decoration: none;
   font-weight: 500;
@@ -243,8 +241,8 @@ body {
 .login-container p a:hover,
 .register-container p a:hover,
 .reset-password-container p a:hover,
-.riderLoginForm p a:hover,
-.riderRegisterForm p a:hover {
+riderLoginForm p a:hover,
+riderRegisterForm p a:hover {
   color: #1d4ed8;
 }
 
@@ -596,127 +594,127 @@ body {
   7. Responsive Design
 ------------------------------------ */
 @media (max-width: 768px) {
-  /* Navigation Bar */
-  .nav-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    /* Navigation Bar */
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-  .nav-links {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    display: none; /* Hidden by default */
-  }
+    .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        display: none; /* Hidden by default */
+    }
 
-  .nav-links.active {
-    display: flex;
-  }
+    .nav-links.active {
+        display: flex;
+    }
 
-  .nav-links a {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border-top: 1px solid #e5e7eb;
-  }
+    .nav-links a {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-top: 1px solid #e5e7eb;
+    }
 
-  .nav-links a:first-child {
-    border-top: none;
-  }
+    .nav-links a:first-child {
+        border-top: none;
+    }
 
-  /* Show hamburger button */
-  .hamburger {
-    display: block;
-  }
+    /* Show hamburger button */
+    .hamburger {
+        display: block;
+    }
 
-  /* Hide certain links on mobile to prioritize space */
-  .switch-role-link, .signup-btn, .logout-btn {
-    display: none;
-  }
+    /* Hide certain links on mobile to prioritize space */
+    .switch-role-link, .signup-btn, .logout-btn {
+        display: none;
+    }
 
-  /* Booking Container */
-  .booking-container {
-    flex-direction: column;
-    align-items: center;
-  }
+    /* Booking Container */
+    .booking-container {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .booking-form,
-  .map-container {
-    max-width: 100%;
-  }
+    .booking-form,
+    .map-container {
+        max-width: 100%;
+    }
 
-  /* Rider Dashboard Sections */
-  .route-section,
-  .map-section,
-  .notifications-section {
-    padding: 1.5rem;
-  }
+    /* Rider Dashboard Sections */
+    .route-section,
+    .map-section,
+    .notifications-section {
+        padding: 1.5rem;
+    }
 
-  .notifications-section ul li {
-    padding: 0.5rem;
-    font-size: 0.9rem;
-  }
+    .notifications-section ul li {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
 
-  /* Feature Cards */
-  .feature-card {
-    max-width: 100%;
-  }
+    /* Feature Cards */
+    .feature-card {
+        max-width: 100%;
+    }
 
-  /* Adjust Hero Section */
-  .hero h1 {
-    font-size: 2rem;
-  }
+    /* Adjust Hero Section */
+    .hero h1 {
+        font-size: 2rem;
+    }
 
-  .hero p {
-    font-size: 1rem;
-  }
+    .hero p {
+        font-size: 1rem;
+    }
 
-  /* Ensure buttons span full width on mobile */
-  .login-btn,
-  .register-btn,
-  .reset-btn,
-  .logout-btn,
-  .submit-btn,
-  #start-trip-btn,
-  .toggle-waypoint-btn {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-  }
+    /* Ensure buttons span full width on mobile */
+    .login-btn,
+    .register-btn,
+    .reset-btn,
+    .logout-btn,
+    .submit-btn,
+    #start-trip-btn,
+    .toggle-waypoint-btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
 
-  /* Adjust map height on smaller screens */
-  #map {
-    height: 250px;
-  }
+    /* Adjust map height on smaller screens */
+    #map {
+        height: 250px;
+    }
 
-  /* Responsive Form Containers */
-  .login-container,
-  .register-container,
-  .reset-password-container,
-  .riderLoginForm,
-  .riderRegisterForm {
-    width: 90%;
-    max-width: 400px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-  }
+    /* Responsive Form Containers */
+    .login-container,
+    .register-container,
+    .reset-password-container,
+    .riderLoginForm,
+    .riderRegisterForm {
+        width: 90%;
+        max-width: 400px;
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
 
-  /* Adjust map containers */
-  .map-container,
-  .route-section,
-  .map-section,
-  .notifications-section {
-    padding: 1.5rem;
-  }
+    /* Adjust map containers */
+    .map-container,
+    .route-section,
+    .map-section,
+    .notifications-section {
+        padding: 1.5rem;
+    }
 
-  /* Autocomplete Containers */
-  .autocomplete-container {
-    max-height: 150px;
-  }
+    /* Autocomplete Containers */
+    .autocomplete-container {
+        max-height: 150px;
+    }
 
-  .autocomplete-item {
-    padding: 0.5rem 1rem;
-    font-size: 0.95rem;
-  }
+    .autocomplete-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+    }
 }
 
 /* -----------------------------------
