@@ -1,0 +1,47 @@
+<!-- riderRegister.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metadata and Title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rider Registration - On The Way Taxi</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icons/favicon.png">
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="spinner" style="display: none;">
+        <p>Loading...</p>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="register-container">
+        <h2>Rider Registration</h2>
+        <form id="riderRegisterForm">
+            <div class="form-group">
+                <label for="rider-name">Name:</label>
+                <input type="text" id="rider-name" required>
+            </div>
+            <div class="form-group">
+                <label for="rider-email">Email:</label>
+                <input type="email" id="rider-email" required>
+            </div>
+            <div class="form-group">
+                <label for="rider-password">Password:</label>
+                <input type="password" id="rider-password" required>
+            </div>
+            <button type="submit" class="register-btn">Sign Up as Rider</button>
+        </form>
+        <div id="error-message" class="error-message"></div> <!-- Error Message Container -->
+        <p>Already have an account? <a href="riderLogin.html">Login as Rider</a></p>
+        <p>Are you a passenger? <a href="register.html">Register as Passenger</a></p>
+    </div>
+
+    <!-- Firebase and JS scripts -->
+    <script type="module" src="firebaseConfig.js"></script>
+    <script type="module" src="riderAuth.js"></script>
+</body>
+</html>

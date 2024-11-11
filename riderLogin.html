@@ -1,0 +1,44 @@
+<!-- riderLogin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metadata and Title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rider Login - On The Way Taxi</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icons/favicon.png">
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="spinner" style="display: none;">
+        <p>Loading...</p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <h2>Rider Login</h2>
+        <form id="riderLoginForm">
+            <div class="form-group">
+                <label for="rider-email">Email:</label>
+                <input type="email" id="rider-email" required>
+            </div>
+            <div class="form-group">
+                <label for="rider-password">Password:</label>
+                <input type="password" id="rider-password" required>
+            </div>
+            <button type="submit" class="login-btn">Login as Rider</button>
+        </form>
+        <div id="error-message" class="error-message"></div> <!-- Error Message Container -->
+        <p>Don't have an account? <a href="riderRegister.html">Sign Up as Rider</a></p>
+        <p>Are you a passenger? <a href="login.html">Login as Passenger</a></p>
+        <p><a href="resetPassword.html">Forgot your password?</a></p> <!-- Reset Password Link -->
+    </div>
+
+    <!-- Firebase and JS scripts -->
+    <script type="module" src="firebaseConfig.js"></script>
+    <script type="module" src="riderAuth.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metadata and Title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Dashboard - On The Way Taxi</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icons/favicon.png">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">On The Way Taxi</a>
+            <div class="nav-links" id="nav-links">
+                <a href="services.html" id="services-link">Services</a>
+                <a href="yourRides.html" id="your-rides-link">Your Rides</a>
+                <a href="riderLogin.html" class="switch-role-link" id="rider-link">Are you a Rider?</a>
+                <a href="login.html" id="login-link">Login</a>
+                <a href="register.html" class="signup-btn" id="signup-link">Sign Up</a>
+                <a href="#" class="logout-btn" id="logout-link" style="display: none;">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Welcome Message -->
+    <div class="main-container">
+        <div id="welcome-message" style="display: none;">
+            <h2>Welcome, <span id="user-name"></span>!</h2>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Book Your Ride with Ease</h1>
+            <p>Experience seamless taxi booking with real-time tracking and multiple route options.</p>
+        </section>
+
+        <!-- Booking Form Section -->
+        <div class="booking-container">
+            <div class="booking-form">
+                <h2>Book a Ride</h2>
+                <form id="bookingForm">
+                    <div class="form-group" style="position: relative; max-width: 100%;">
+                        <label for="pickup">Your Current Location</label>
+                        <input type="text" id="pickup" placeholder="Enter or detect your location..." required>
+                        <div id="pickup-autocomplete-results" class="autocomplete-container"></div>
+                    </div>
+
+                    <!-- Waypoint Toggle Button -->
+                    <button type="button" id="toggle-waypoint-btn">Add a Waypoint</button>
+
+                    <div id="waypoint-container" style="display: none;">
+                        <label for="waypoint">Add Waypoint (Optional)</label>
+                        <input type="text" id="waypoint" placeholder="Enter a waypoint">
+                        <div id="waypoint-autocomplete-results" class="autocomplete-container"></div>
+                    </div>
+
+                    <div class="form-group" style="position: relative; max-width: 100%;">
+                        <label for="destination">Where are you going?</label>
+                        <input type="text" id="destination" placeholder="Enter destination" autocomplete="off" required>
+                        <div id="autocomplete-results" class="autocomplete-container"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="passengers">Passengers</label>
+                        <select id="passengers" required>
+                            <option value="1">1 Passenger</option>
+                            <option value="2">2 Passengers</option>
+                            <option value="3">3 Passengers</option>
+                            <option value="4">4 Passengers</option>
+                            <option value="5">5 Passengers</option>
+                            <option value="6">6 Passengers</option>
+                            <option value="7">7 Passengers</option>
+                            <option value="8">8 Passengers</option>
+                            <option value="9">9 Passengers</option>
+                            <option value="10">10 Passengers</option>
+                            <option value="11+">11+ Passengers</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn" id="book-ride-btn">Book Now</button>
+                </form>
+                <div id="message-container"></div> <!-- Message Container for User Feedback -->
+            </div>
+            <div class="map-container">
+                <div id="map" style="height: 400px; width: 100%; background-color: #e0e0e0; border-radius: 1rem; overflow: hidden;"></div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="feature-card">
+                <h3>Real-Time Tracking</h3>
+                <p>Track your ride in real-time with our integrated map services.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Multiple Route Options</h3>
+                <p>Select the best route that suits your preference and time.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Secure Payments</h3>
+                <p>Pay securely with various payment options available.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 On The Way Taxi. All rights reserved.</p>
+    </footer>
+
+    <!-- Firebase and JS scripts -->
+    <script type="module" src="firebaseConfig.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="indexScript.js"></script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</body>
+</html>

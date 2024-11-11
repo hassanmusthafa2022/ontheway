@@ -1,0 +1,93 @@
+<!-- riderDashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metadata and Title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rider Dashboard - On The Way Taxi</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link rel="icon" type="image/png" href="icons/favicon.png">
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" defer></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">On The Way Taxi</a>
+            <div class="nav-links" id="nav-links">
+                <a href="services.html" id="services-link">Services</a>
+                <a href="yourRides.html" id="your-rides-link">Your Rides</a>
+                <a href="login.html" class="switch-role-link" id="user-link">Are you a Passenger?</a>
+                <a href="riderLogin.html" id="login-link">Login</a>
+                <a href="riderRegister.html" class="signup-btn" id="signup-link">Sign Up</a>
+                <a href="#" class="logout-btn" id="logout-link" style="display: none;">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="spinner" style="display: none;">
+        <p>Loading...</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Welcome Message -->
+        <div id="welcome-message" style="display: none;">
+            <h2>Welcome, <span id="rider-name"></span>!</h2>
+        </div>
+
+        <!-- Route Setup Section -->
+        <section class="route-section">
+            <h2>Set Your Trip Route</h2>
+            <div class="form-group" style="position: relative;">
+                <label for="current-location">Your Current Location</label>
+                <input type="text" id="current-location" placeholder="Enter your current location">
+                <div id="current-location-autocomplete" class="autocomplete-container"></div>
+            </div>
+            <button type="button" id="toggle-waypoint-btn">Add a Waypoint</button>
+            <div id="waypoint-container" style="display: none;">
+                <label for="waypoint-location">Add Waypoint (Optional)</label>
+                <input type="text" id="waypoint-location" placeholder="Enter a waypoint">
+                <div id="waypoint-autocomplete" class="autocomplete-container"></div>
+            </div>
+            <div class="form-group" style="position: relative;">
+                <label for="destination-location">Where are you going?</label>
+                <input type="text" id="destination-location" placeholder="Enter your destination">
+                <div id="destination-location-autocomplete" class="autocomplete-container"></div>
+            </div>
+            <button id="start-trip-btn" class="submit-btn">Start Trip</button>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <h2>Your Route</h2>
+            <div id="map" style="height: 400px; width: 100%; background-color: #e0e0e0; border-radius: 1rem; overflow: hidden;"></div>
+        </section>
+
+        <!-- Notifications Section -->
+        <section class="notifications-section">
+            <h2>Notifications</h2>
+            <ul id="notifications-list">
+                <!-- Notifications will be dynamically loaded here -->
+                <li>No new notifications.</li>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 On The Way Taxi. All rights reserved.</p>
+    </footer>
+
+    <!-- Firebase and JavaScript -->
+    <script type="module" src="firebaseConfig.js"></script>
+    <script type="module" src="riderDashboardScript.js" defer></script>
+</body>
+</html>
