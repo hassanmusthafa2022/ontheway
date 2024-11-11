@@ -1,4 +1,4 @@
-<!-- yourRides.html-->
+<!-- yourRides.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Rides</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icons/favicon.png">
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">On The Way Taxi</a>
+            <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation">
+                &#9776;
+            </button>
             <div class="nav-links" id="nav-links">
                 <a href="services.html" id="services-link">Services</a>
                 <a href="yourRides.html" id="your-rides-link">Your Rides</a>
@@ -24,17 +28,26 @@
     </nav>
 
     <!-- Welcome Message -->
-    <div class="main-container">
+    <header class="welcome-header">
         <div id="welcome-message" style="display: none;">
             <h2>Welcome, <span id="user-name"></span>!</h2>
         </div>
+    </header>
 
+    <!-- Main Content -->
+    <main class="main-container">
         <h2>Your Rides</h2>
         <div id="rides-list"></div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 On The Way Taxi. All rights reserved.</p>
+    </footer>
 
     <!-- Firebase and JS scripts -->
     <script type="module" src="firebaseConfig.js"></script>
     <script type="module" src="yourRidesScript.js"></script>
+    <script type="module" src="navbarToggle.js" defer></script> <!-- Added for Hamburger Menu -->
 </body>
 </html>

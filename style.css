@@ -18,7 +18,7 @@ body {
 }
 
 /* -----------------------------------
- 2. Navigation Bar Styles
+  2. Navigation Bar Styles
 ------------------------------------ */
 .navbar {
   background: #ffffff;
@@ -90,7 +90,7 @@ body {
 }
 
 /* -----------------------------------
- 3. Loading Spinner and Message Container
+  3. Loading Spinner and Message Container
 ------------------------------------ */
 /* Loading Spinner Styling */
 .spinner {
@@ -137,7 +137,7 @@ body {
 }
 
 /* -----------------------------------
- 4. Login and Registration Styles
+  4. Login and Registration Styles
 ------------------------------------ */
 .login-container,
 .register-container,
@@ -249,7 +249,7 @@ body {
 }
 
 /* -----------------------------------
- 5. Passenger Dashboard Styles
+  5. Passenger Dashboard Styles
 ------------------------------------ */
 /* Welcome Message */
 #welcome-message {
@@ -438,7 +438,7 @@ body {
 }
 
 /* -----------------------------------
- 6. Rider Dashboard Styles
+  6. Rider Dashboard Styles
 ------------------------------------ */
 /* Rider Dashboard Main Container */
 .main-container {
@@ -593,7 +593,7 @@ body {
 }
 
 /* -----------------------------------
- 7. Responsive Design
+  7. Responsive Design
 ------------------------------------ */
 @media (max-width: 768px) {
   /* Navigation Bar */
@@ -720,7 +720,7 @@ body {
 }
 
 /* -----------------------------------
- 8. Additional Styles for Mobile-Friendly Autocomplete and Buttons
+  8. Additional Styles for Mobile-Friendly Autocomplete and Buttons
 ------------------------------------ */
 
 /* Ensure autocomplete dropdowns are responsive and touch-friendly */
@@ -744,7 +744,7 @@ body {
 }
 
 /* -----------------------------------
- 9. Touch-Friendly Interactions
+  9. Touch-Friendly Interactions
 ------------------------------------ */
 
 /* Remove hover-only styles and add active states */
