@@ -7,15 +7,8 @@ import {
     signOut 
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { 
-    collection, 
-    addDoc, 
     doc, 
-    getDoc, 
-    setDoc, 
-    updateDoc, 
-    onSnapshot, 
-    query, 
-    where 
+    getDoc 
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const auth = getAuth(app);
@@ -111,7 +104,37 @@ function initMap(latitude, longitude) {
         .bindPopup('Your Current Location')
         .openPopup();
 
-    currentLocationInput.value = `${latitude}, ${longitude}`; // Auto-fill current location input
+    // Perform reverse geocoding to get a readable address
+    reverseGeocode(latitude, longitude)
+        .then(address => {
+            if (address) {
+                currentLocationInput.value = address;
+                // Optionally, trigger route update if destination is already set
+                if (destinationLocationInput.value.trim()) {
+                    updateRoute();
+                }
+            } else {
+                currentLocationInput.value = `${latitude}, ${longitude}`;
+            }
+        })
+        .catch(error => {
+            console.error("Reverse Geocoding Error:", error);
+            currentLocationInput.value = `${latitude}, ${longitude}`;
+        });
+}
+
+// Function to reverse geocode coordinates to a readable address
+async function reverseGeocode(latitude, longitude) {
+    try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+        const data = await response.json();
+        if (data && data.display_name) {
+            return data.display_name;
+        }
+    } catch (error) {
+        console.error("Error with reverse geocoding:", error);
+    }
+    return null;
 }
 
 // Get user's current location and initialize map
@@ -278,6 +301,10 @@ async function updateRoute() {
     const endCoords = await geocodeAddress(destinationLocation);
     const waypointCoords = waypointLocation ? await geocodeAddress(waypointLocation) : null;
 
+    console.log("Start Coordinates:", startCoords);
+    console.log("End Coordinates:", endCoords);
+    console.log("Waypoint Coordinates:", waypointCoords);
+
     if (startCoords && endCoords) {
         drawRoute(startCoords, endCoords, waypointCoords);
     } else {
@@ -299,10 +326,14 @@ function drawRoute(startCoords, endCoords, waypointCoords) {
     // Construct the coordinate string for OSRM (lon,lat)
     const coordsString = waypoints.map(coords => `${coords.lon},${coords.lat}`).join(';');
 
+    console.log("OSRM Request URL:", `https://router.project-osrm.org/route/v1/driving/${coordsString}?overview=full&geometries=geojson&alternatives=false`);
+
     // Fetch route from OSRM
     fetch(`https://router.project-osrm.org/route/v1/driving/${coordsString}?overview=full&geometries=geojson&alternatives=false`)
         .then(response => response.json())
         .then(data => {
+            console.log("OSRM Response Data:", data); // Debugging
+
             if (data.routes && data.routes.length > 0) {
                 const route = data.routes[0];
                 const routeCoords = route.geometry.coordinates.map(coord => [coord[1], coord[0]]); // [lat, lon]
@@ -400,7 +431,8 @@ function setupAutocomplete(inputElement, resultsContainer, updateFunction) {
                 item.addEventListener('click', () => {
                     inputElement.value = item.getAttribute('data-name');
                     resultsContainer.innerHTML = '';
-                    updateFunction(); // Update route immediately after selection
+                    updateFunction({ lat: parseFloat(item.getAttribute('data-lat')), lon: parseFloat(item.getAttribute('data-lon')) }); // Pass coordinates
+                    updateRoute(); // Ensure route is updated after selection
                 });
             });
         } catch (error) {
@@ -416,9 +448,9 @@ function setupAutocomplete(inputElement, resultsContainer, updateFunction) {
 }
 
 // Initialize autocomplete for current location, destination, and waypoint inputs
-setupAutocomplete(currentLocationInput, document.getElementById('current-location-autocomplete'), updateRoute);
-setupAutocomplete(destinationLocationInput, document.getElementById('destination-location-autocomplete'), updateRoute);
-setupAutocomplete(waypointInput, document.getElementById('waypoint-autocomplete'), updateRoute);
+setupAutocomplete(currentLocationInput, document.getElementById('current-location-autocomplete'), plotLocationOnMap);
+setupAutocomplete(destinationLocationInput, document.getElementById('destination-location-autocomplete'), plotLocationOnMap);
+setupAutocomplete(waypointInput, document.getElementById('waypoint-autocomplete'), plotLocationOnMap);
 
 // Listen for notifications
 function listenForNotifications() {

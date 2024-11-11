@@ -79,6 +79,16 @@ body {
   background: #1d4ed8;
 }
 
+/* Hamburger Button Styling */
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4b5563;
+}
+
 /* -----------------------------------
  3. Loading Spinner and Message Container
 ------------------------------------ */
@@ -130,7 +140,10 @@ body {
  4. Login and Registration Styles
 ------------------------------------ */
 .login-container,
-.register-container {
+.register-container,
+.reset-password-container,
+.riderLoginForm,
+.riderRegisterForm {
   background: #ffffff;
   padding: 2rem;
   border-radius: 1rem;
@@ -142,7 +155,10 @@ body {
 }
 
 .login-container h2,
-.register-container h2 {
+.register-container h2,
+.reset-password-container h2,
+.riderLoginForm h2,
+.riderRegisterForm h2 {
   color: #1f2937;
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
@@ -179,7 +195,10 @@ body {
 /* Submit Buttons */
 .login-btn,
 .register-btn,
-.submit-btn {
+.reset-btn,
+.submit-btn,
+#start-trip-btn,
+.toggle-waypoint-btn {
   background: #2563eb;
   color: white;
   padding: 0.75rem 1.5rem;
@@ -194,26 +213,38 @@ body {
 
 .login-btn:hover,
 .register-btn:hover,
-.submit-btn:hover {
+.reset-btn:hover,
+.submit-btn:hover,
+#start-trip-btn:hover,
+.toggle-waypoint-btn:hover {
   background: #1d4ed8;
 }
 
 /* Links Styling in Forms */
 .login-container p,
-.register-container p {
+.register-container p,
+.reset-password-container p,
+.riderLoginForm p,
+.riderRegisterForm p {
   margin-top: 1rem;
   color: #4b5563;
 }
 
 .login-container p a,
-.register-container p a {
+.register-container p a,
+.reset-password-container p a,
+.riderLoginForm p a,
+.riderRegisterForm p a {
   color: #2563eb;
   text-decoration: none;
   font-weight: 500;
 }
 
 .login-container p a:hover,
-.register-container p a:hover {
+.register-container p a:hover,
+.reset-password-container p a:hover,
+.riderLoginForm p a:hover,
+.riderRegisterForm p a:hover {
   color: #1d4ed8;
 }
 
@@ -467,7 +498,7 @@ body {
   right: 0;
   background: white;
   border: 1px solid #ddd;
-  max-height: 150px;
+  max-height: 200px;
   overflow-y: auto;
   z-index: 1000; /* Ensure autocomplete appears above other elements */
   border-radius: 0 0 0.5rem 0.5rem;
@@ -565,53 +596,177 @@ body {
  7. Responsive Design
 ------------------------------------ */
 @media (max-width: 768px) {
-  .navbar {
-      flex-direction: column;
-      align-items: flex-start;
+  /* Navigation Bar */
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .nav-links {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    display: none; /* Hidden by default */
   }
 
-  .booking-container {
-      flex-direction: column;
-      align-items: center;
-  }
-
-  .features {
-      flex-direction: column;
-      align-items: center;
-  }
-
-  .login-container,
-  .register-container {
-      padding: 1.5rem;
-  }
-
-  .login-btn,
-  .register-btn,
-  .submit-btn,
-  #start-trip-btn {
-      padding: 0.6rem 1.2rem;
-      font-size: 0.9rem;
+  .nav-links.active {
+    display: flex;
   }
 
   .nav-links a {
-      margin-left: 1rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .nav-links a:first-child {
+    border-top: none;
+  }
+
+  /* Show hamburger button */
+  .hamburger {
+    display: block;
+  }
+
+  /* Hide certain links on mobile to prioritize space */
+  .switch-role-link, .signup-btn, .logout-btn {
+    display: none;
+  }
+
+  /* Booking Container */
+  .booking-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .booking-form,
+  .map-container {
+    max-width: 100%;
+  }
+
+  /* Rider Dashboard Sections */
+  .route-section,
+  .map-section,
+  .notifications-section {
+    padding: 1.5rem;
+  }
+
+  .notifications-section ul li {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Feature Cards */
+  .feature-card {
+    max-width: 100%;
+  }
+
+  /* Adjust Hero Section */
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  /* Ensure buttons span full width on mobile */
+  .login-btn,
+  .register-btn,
+  .reset-btn,
+  .logout-btn,
+  .submit-btn,
+  #start-trip-btn,
+  .toggle-waypoint-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
   }
 
   /* Adjust map height on smaller screens */
   #map {
-      height: 300px;
+    height: 300px;
   }
 
-  /* Rider Dashboard Adjustments */
+  /* Responsive Form Containers */
+  .login-container,
+  .register-container,
+  .reset-password-container,
+  .riderLoginForm,
+  .riderRegisterForm {
+    width: 90%;
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+
+  /* Adjust map containers */
+  .map-container,
   .route-section,
   .map-section,
   .notifications-section {
-      padding: 1.5rem;
+    padding: 1.5rem;
   }
+
+  /* Autocomplete Containers */
+  .autocomplete-container {
+    max-height: 150px;
+  }
+
+  .autocomplete-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* -----------------------------------
+ 8. Additional Styles for Mobile-Friendly Autocomplete and Buttons
+------------------------------------ */
+
+/* Ensure autocomplete dropdowns are responsive and touch-friendly */
+.autocomplete-container {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.autocomplete-item {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .autocomplete-container {
+    max-height: 150px;
+  }
+
+  .autocomplete-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* -----------------------------------
+ 9. Touch-Friendly Interactions
+------------------------------------ */
+
+/* Remove hover-only styles and add active states */
+button,
+a.button,
+.submit-btn,
+.login-btn,
+.register-btn,
+.reset-btn,
+#start-trip-btn,
+.toggle-waypoint-btn {
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:active,
+a.button:active,
+.submit-btn:active,
+.login-btn:active,
+.register-btn:active,
+.reset-btn:active,
+#start-trip-btn:active,
+.toggle-waypoint-btn:active {
+  transform: scale(0.98);
+  background-color: #1d4ed8;
 }
