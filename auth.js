@@ -40,6 +40,8 @@ function displayError(message, containerId) {
     const errorMessageContainer = document.getElementById(containerId);
     if (errorMessageContainer) {
         errorMessageContainer.textContent = message;
+        errorMessageContainer.classList.add('active');
+        errorMessageContainer.classList.remove('success');
     } else {
         alert(message);
     }
@@ -50,6 +52,8 @@ function displaySuccess(message, containerId) {
     const successMessageContainer = document.getElementById(containerId);
     if (successMessageContainer) {
         successMessageContainer.textContent = message;
+        successMessageContainer.classList.add('active', 'success');
+        successMessageContainer.classList.remove('error');
     }
 }
 
@@ -85,7 +89,7 @@ if (registerForm) {
                 role 
             });
 
-            displayError(`Registration successful! A verification email has been sent to your email address. Please verify your email before logging in as a ${role}.`, 'error-message');
+            displaySuccess(`Registration successful! A verification email has been sent to your email address. Please verify your email before logging in as a ${role}.`, 'message-container');
             registerForm.reset();
 
             // Optionally, redirect to the appropriate login page after a short delay
@@ -128,6 +132,7 @@ if (loginForm) {
 
         // Clear any previous error messages
         displayError('', 'error-message');
+        displaySuccess('', 'message-container');
 
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -259,7 +264,7 @@ if (logoutLinkElement) {
             await signOut(auth);
             window.location.href = expectedRole === "passenger" ? 'login.html' : 'riderLogin.html';
         } catch (error) {
-            console.error("Logout Error:", error);
+            console.error("Logout Error:", error.message);
             alert('Failed to log out. Please try again.');
         }
     });
