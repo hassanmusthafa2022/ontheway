@@ -3,7 +3,8 @@
 import { app, db } from './firebaseConfig.js';
 import { 
   getAuth, 
-  onAuthStateChanged 
+  onAuthStateChanged, 
+  signOut 
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { 
   collection, 
@@ -51,6 +52,9 @@ function initMap(latitude, longitude) {
     userMarker = L.marker([latitude, longitude], { icon: pickupIcon }).addTo(map)
         .bindPopup('Your Current Location')
         .openPopup();
+    
+    // Adjust map size after initialization
+    map.invalidateSize();
 }
 
 // Function to update the pickup marker on the map
@@ -79,9 +83,13 @@ async function getUserLocation() {
             showMessage("Unable to retrieve location. Please check location permissions.", "error");
             // Initialize map with a default location (e.g., New York City)
             initMap(40.7128, -74.0060);
+            pickupInput.value = "New York City, NY, USA"; // Default address
         });
     } else {
         showMessage("Geolocation is not supported by this browser.", "error");
+        // Initialize map with a default location
+        initMap(40.7128, -74.0060);
+        pickupInput.value = "New York City, NY, USA"; // Default address
     }
 }
 
@@ -90,9 +98,10 @@ async function reverseGeocode(latitude, longitude) {
     try {
         const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
         const data = await response.json();
-        pickupInput.value = data.display_name || '';
+        pickupInput.value = data.display_name || 'Unknown Location';
     } catch (error) {
         console.error("Error with reverse geocoding:", error);
+        pickupInput.value = 'Unknown Location';
     }
 }
 
@@ -109,15 +118,23 @@ toggleWaypointBtn.addEventListener('click', () => {
 // Function to request and display the best routes from OSRM with waypoints
 async function displayMultipleRoutes(startLat, startLng, endLat, endLng) {
     const waypoint = waypointInput.value.trim();
-    const waypoints = waypoint ? await geocodeAddress(waypoint) : [];
-    const routeCoordinates = waypoint && waypoints
-        ? `${startLng},${startLat};${waypoints[1]},${waypoints[0]};${endLng},${endLat}`
-        : `${startLng},${startLat};${endLng},${endLat}`;
+    let routeCoordinates = `${startLng},${startLat};${endLng},${endLat}`;
+    
+    if (waypoint) {
+        const waypoints = await geocodeAddress(waypoint);
+        if (waypoints) {
+            routeCoordinates = `${startLng},${startLat};${waypoints.lon},${waypoints.lat};${endLng},${endLat}`;
+        } else {
+            showMessage("Invalid waypoint entered.", "error");
+            return;
+        }
+    }
 
     try {
         const response = await fetch(`https://router.project-osrm.org/route/v1/driving/${routeCoordinates}?overview=full&geometries=geojson&alternatives=true`);
         const data = await response.json();
 
+        // Clear existing route layers
         routeLayers.forEach(layer => map.removeLayer(layer));
         routeLayers = [];
 

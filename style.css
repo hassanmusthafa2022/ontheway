@@ -156,7 +156,7 @@ body {
 .register-container h2,
 .reset-password-container h2,
 .riderLoginForm h2,
-riderRegisterForm h2 {
+.riderRegisterForm h2 {
   color: #1f2937;
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
@@ -223,7 +223,7 @@ riderRegisterForm h2 {
 .register-container p,
 .reset-password-container p,
 .riderLoginForm p,
-riderRegisterForm p {
+.riderRegisterForm p {
   margin-top: 1rem;
   color: #4b5563;
 }
@@ -232,7 +232,7 @@ riderRegisterForm p {
 .register-container p a,
 .reset-password-container p a,
 .riderLoginForm p a,
-riderRegisterForm p a {
+.riderRegisterForm p a {
   color: #2563eb;
   text-decoration: none;
   font-weight: 500;
@@ -241,8 +241,8 @@ riderRegisterForm p a {
 .login-container p a:hover,
 .register-container p a:hover,
 .reset-password-container p a:hover,
-riderLoginForm p a:hover,
-riderRegisterForm p a:hover {
+.riderLoginForm p a:hover,
+.riderRegisterForm p a:hover {
   color: #1d4ed8;
 }
 
@@ -285,10 +285,10 @@ riderRegisterForm p a:hover {
 /* Booking Form Styles */
 .booking-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column; /* Stack vertically */
   gap: 2rem;
   margin-bottom: 3rem;
-  justify-content: center;
+  align-items: center; /* Center align items */
 }
 
 .booking-form {
@@ -296,7 +296,7 @@ riderRegisterForm p a:hover {
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  flex: 1 1 400px;
+  width: 100%;
   max-width: 500px;
 }
 
@@ -394,7 +394,7 @@ riderRegisterForm p a:hover {
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  flex: 1 1 400px;
+  width: 100%;
   max-width: 600px;
 }
 
